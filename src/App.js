@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useRef } from 'react';
+import {useEffect, useRef} from 'react';
 import {
   DocumentEditorComponent,
   DocumentEditorContainerComponent,
@@ -11,10 +11,11 @@ import {
   WordExport,
 } from '@syncfusion/ej2-react-documenteditor';
 import './App.css';
+import {fileObj} from './test-obj';
 
+// DocumentEditorContainerComponent is the full editor with toolbar, sidebar and footer
+// DocumentEditorComponent is just the editor itself, but it has events that open the sidebar
 DocumentEditorContainerComponent.Inject(Toolbar, WordExport, SfdtExport);
-
-//Inject require module.
 DocumentEditorComponent.Inject(
   SfdtExport,
   Selection,
@@ -28,7 +29,7 @@ function App() {
   // When using DocumentEditorContainerComponent as the component
   //  to access the editor you have to use documentContainer.current.documentEditor
   // When using DocumentEditorComponent your Ref is already the documentEditor
-  const documentContainer = useRef();
+  const documentContainer = useRef(null);
 
   function save() {
     let http = new XMLHttpRequest();
@@ -48,7 +49,7 @@ function App() {
 
   // To open a file by default (programmatically)
   useEffect(() => {
-    // documentContainer.current.open(fileObj);
+    documentContainer.current.open(fileObj);
   }, [documentContainer]);
 
   const addComment = () => {
@@ -74,8 +75,8 @@ function App() {
   return (
     <div>
       <button onClick={save}>Save</button>
-      <button onClick={addComment}>Save</button>
-      <button onClick={selectParagraph}>Save</button>
+      <button onClick={addComment}>Add Comment</button>
+      <button onClick={selectParagraph}>select Paragraph</button>
       <DocumentEditorComponent
         id="container"
         height={'100vh'}
@@ -96,7 +97,6 @@ function App() {
         enableLocalPaste={true}
         created={(e) => console.log('created', e)}
         contentChange={(e) => console.log('contentChanged', e)}
-        selectionChange={(e) => selectParagraph(e)}
         pageOutline={'transparent'}
         pageGap={0}
       />
