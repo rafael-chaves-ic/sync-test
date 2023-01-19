@@ -25,6 +25,9 @@ DocumentEditorComponent.Inject(
 );
 
 function App() {
+  // When using DocumentEditorContainerComponent as the component
+  //  to access the editor you have to use documentContainer.current.documentEditor
+  // When using DocumentEditorComponent your Ref is already the documentEditor
   const documentContainer = useRef();
 
   function save() {
@@ -43,17 +46,15 @@ function App() {
     // documentEditor.editor.save('sample', 'Docx');
   }
 
+  // To open a file by default (programmatically)
   useEffect(() => {
-    // documentContainer.current.documentEditor.open(file);
     // documentContainer.current.open(fileObj);
-    // documentContainer.current.documentEditor.enableTrackChanges = true;
-    // documentContainer.current.documentEditor.enableComment = true;
   }, [documentContainer]);
 
-  const addTable = () => {
+  const addComment = () => {
     documentContainer.current.editor.insertComment('test');
-    // documentContainer.current.editor.insertTable();
-    // documentContainer.current.selection.selectParagraph();
+
+    // Debug info
     console.log('editor', documentContainer.current.editor);
     console.log('all', documentContainer.current);
     console.log('selection', documentContainer.current.selection);
@@ -67,15 +68,15 @@ function App() {
   };
 
   const selectParagraph = (editor) => {
-    // documentContainer.current.editor.insertComment('test');
-    // documentContainer.current.editor.insertTable();
-    // documentContainer.current.selection.selectParagraph();
+    documentContainer.current.selection.selectParagraph();
   };
 
   return (
     <div>
       <button onClick={save}>Save</button>
-      <DocumentEditorContainerComponent
+      <button onClick={addComment}>Save</button>
+      <button onClick={selectParagraph}>Save</button>
+      <DocumentEditorComponent
         id="container"
         height={'100vh'}
         serviceUrl="http://localhost:62870/api/documenteditor/"
