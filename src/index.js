@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {registerLicense} from '@syncfusion/ej2-base';
+
+// Registering Syncfusion license key
+registerLicense(
+  'ORg4AjUWIQA/Gnt2VVhkQlFadVdJX3xIeEx0RWFab1t6dl1MYVlBNQtUQF1hSn5Sd01jXH9bdHFRQGlb',
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
